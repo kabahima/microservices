@@ -1,10 +1,11 @@
-FROM node:14-alpine
-ENV NODE_ENV=production
+FROM node:12
+# Create app directory
 WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied where available (npm@5+)
+COPY package*.json ./
+RUN npm ci 
+# Bundle app source
 COPY . .
-EXPOSE 3000
-RUN chown -R node /usr/src/app
-USER node
-CMD ["npm", "start"]
+EXPOSE 8080
+CMD [ "npm", "run", "prod" ]
