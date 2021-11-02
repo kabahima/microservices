@@ -1,13 +1,29 @@
-# Assuming the .travis.yml file is in the project directory, and there is a separate sub-directory for each service
-# Use either `docker-compose` or individual `docker build` commands
-# Build
-- docker build -t udagram-api-feed ./udagram-api-feed
-# Do similar for other three images
-# Tagging
-- docker tag udagram-api-feed sudkul/udagram-api-feed:v1
-# Do similar for other three images
-# Push
-# Assuming DOCKER_PASSWORD and DOCKER_USERNAME are set in the Travis repository settings
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker push sudkul/udagram-api-feed:v1
-# Do similar for other three images
+# https://docs.travis-ci.com/user/docker/
+os: linux
+dist: focal
+language: shell
+
+services:
+  - docker
+
+# https://docs.travis-ci.com/user/docker/#installing-a-newer-docker-version
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  
+script:
+  # Assuming the .travis.yml file is in the project directory, and there is a separate sub-directory for each service
+  # Use either `docker-compose` or individual `docker build` commands
+  # Build
+  - docker build -t udagram-api-feed ./udagram-api-feed
+  # Do similar for other three images
+  # Tagging
+  - docker tag udagram-api-feed sudkul/udagram-api-feed:v1
+  # Do similar for other three images
+  # Push
+  # Assuming DOCKER_PASSWORD and DOCKER_USERNAME are set in the Travis repository settings
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push sudkul/udagram-api-feed:v1
+  # Do similar for other three images
