@@ -1,5 +1,3 @@
-# This file is used for convenience of local development.
-# DO NOT STORE YOUR CREDENTIALS INTO GIT
 export POSTGRES_USERNAME=ernest
 export POSTGRES_PASSWORD=Erst24286
 export POSTGRES_HOST=db-micro-service.ceelnzw9okyl.eu-west-2.rds.amazonaws.com
@@ -9,3 +7,5 @@ export AWS_REGION=us-west-2
 export AWS_PROFILE=default
 export JWT_SECRET=testing
 export URL=http://localhost:8100
+export DOCKER_PASSWORD = Erst24286
+export DOCKER_USERNAME = ernest575
